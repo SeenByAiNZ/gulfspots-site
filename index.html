@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Gulf Spots reads the wind, tide and light for fishing spots in the inner Hauraki Gulf and shows the best places to try from your ramp. An app by Northbeam Limited.">
+<meta name="theme-color" content="#08394a">
+<title>Gulf Spots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Atkinson+Hyperlegible+Next:wght@400;700&family=IBM+Plex+Mono:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Layout: chart-room editorial. Full-bleed sea-deep chart hero, then a strict 12-col grid on paper; type and hairline rules do the work, buoy orange marks the one action. Tokens from the Gulf Spots Design Guide v2 (day = light, night = dark). */
+:root{
+  --paper:#f2f5f6; --paper-raised:#ffffff; --ink:#0b1720; --ink-muted:#4a5b66;
+  --rule:#c9d4d8; --border-strong:#6c838e; --sea:#0b5e73; --sea-deep:#08394a;
+  --on-sea-deep:#f2f5f6; --sea-shallow:#d6eaef; --buoy:#e85d10; --on-buoy:#0b1720;
+  --buoy-text:#b4430c; --land:#e6e0cf; --good:#1d7a4c; --warn:#8f5d00; --gauge-off:#c9d4d8;
+  --contour:rgba(242,245,246,.22); --contour-strong:rgba(242,245,246,.5);
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-text:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s6:24px;--s8:32px;--s12:48px;
+  --r-s:4px;--r-m:10px;--max:1180px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#091218; --paper-raised:#112029; --ink:#e7eef1; --ink-muted:#9db0b9;
+  --rule:#22343e; --border-strong:#5d7480; --sea:#5cc1d8; --sea-deep:#0d3646;
+  --on-sea-deep:#e7eef1; --sea-shallow:#0f2f3a; --buoy:#ff7a2f; --on-buoy:#0b1720;
+  --buoy-text:#ff9257; --land:#1b241f; --good:#53d18f; --warn:#f0b54a; --gauge-off:#22343e;
+  --contour:rgba(231,238,241,.16); --contour-strong:rgba(231,238,241,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#091218; --paper-raised:#112029; --ink:#e7eef1; --ink-muted:#9db0b9;
+  --rule:#22343e; --border-strong:#5d7480; --sea:#5cc1d8; --sea-deep:#0d3646;
+  --on-sea-deep:#e7eef1; --sea-shallow:#0f2f3a; --buoy:#ff7a2f; --on-buoy:#0b1720;
+  --buoy-text:#ff9257; --land:#1b241f; --good:#53d18f; --warn:#f0b54a; --gauge-off:#22343e;
+  --contour:rgba(231,238,241,.16); --contour-strong:rgba(231,238,241,.4); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/24px var(--f-text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--s4)}
+@media (min-width:720px){.wrap{padding-inline:var(--s8)}}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--buoy);outline-offset:2px}
+.label{font:700 13px/16px var(--f-text);letter-spacing:.08em;text-transform:uppercase}
+.caption{font:400 13px/18px var(--f-text);color:var(--ink-muted)}
+.coord{font:500 15px/20px var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--sea-deep);color:var(--on-sea-deep);position:relative;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nav{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding-block:var(--s6)}
+.brand{white-space:nowrap;display:flex;align-items:center;gap:var(--s2);font:800 26px/1 var(--f-display);letter-spacing:.01em;text-decoration:none}
+.brand i{width:14px;height:14px;border-radius:999px;background:var(--buoy);display:block}
+.nav .label{opacity:.85;text-align:right}
+@media (max-width:420px){.nav .label{display:none}}
+.hero-grid{position:relative;display:grid;grid-template-columns:1fr;gap:var(--s8);padding-block:var(--s8) var(--s12)}
+@media (min-width:900px){.hero-grid{grid-template-columns:7fr 5fr;align-items:end;padding-block:var(--s12) 72px}}
+.hero h1{font:900 clamp(64px,13vw,148px)/.86 var(--f-display);letter-spacing:-.01em;margin:0;text-wrap:balance;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--buoy)}
+.lede{font:400 19px/29px var(--f-text);max-width:34ch;margin:var(--s6) 0 0}
+.cta-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s8);align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 var(--s6);border-radius:var(--r-m);font:700 17px/1 var(--f-text);text-decoration:none;border:0;cursor:pointer}
+.btn-primary{background:var(--buoy);color:var(--on-buoy)}
+.btn-ghost{color:var(--on-sea-deep);border:1px solid var(--contour-strong)}
+.status{display:flex;gap:var(--s2);align-items:center;margin-top:var(--s4)}
+.status b{width:8px;height:8px;border-radius:999px;background:var(--buoy)}
+
+/* sample readout panel in hero */
+.panel{background:rgba(0,0,0,.18);border:1px solid var(--contour-strong);border-radius:var(--r-m);padding:var(--s6);backdrop-filter:none}
+.panel .top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3)}
+.panel .when{font:800 56px/.95 var(--f-display);margin:var(--s3) 0 var(--s2)}
+.panel .why{font:400 16px/24px var(--f-text);opacity:.92;margin:0 0 var(--s6)}
+.readings{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--contour-strong)}
+.readings div{padding:var(--s3) 0 0;display:grid;gap:var(--s1)}
+.readings div+div{padding-left:var(--s3);border-left:1px solid var(--contour)}
+.readings .v{font:700 28px/1 var(--f-display)}
+.readings .v small{font:400 13px/1 var(--f-text);opacity:.8;margin-left:2px}
+.gauge{display:grid;grid-template-columns:repeat(10,1fr);gap:var(--s1);margin-top:var(--s4)}
+.gauge span{height:16px;border-radius:var(--r-s);border:1px solid var(--contour-strong);background:transparent}
+.gauge span.on{background:var(--on-sea-deep);border-color:var(--on-sea-deep)}
+.panel .foot{display:flex;justify-content:space-between;gap:var(--s3);margin-top:var(--s4);flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font:700 13px/16px var(--f-text);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:var(--r-s);background:var(--on-sea-deep);color:var(--sea-deep)}
+.hero .caption{color:var(--on-sea-deep);opacity:.75}
+
+/* ---------- How it works ---------- */
+.section{padding-block:72px}
+.kicker{display:flex;gap:var(--s3);align-items:baseline;border-top:2px solid var(--ink);padding-top:var(--s3);margin-bottom:var(--s8)}
+.kicker .label{color:var(--buoy-text)}
+.h2{font:800 clamp(40px,6.5vw,72px)/.95 var(--f-display);margin:0;text-transform:uppercase;text-wrap:balance;max-width:16ch}
+.intro{display:grid;gap:var(--s6);grid-template-columns:1fr}
+@media (min-width:900px){.intro{grid-template-columns:7fr 5fr;align-items:end}}
+.intro p{font:400 18px/27px var(--f-text);margin:0;max-width:44ch;color:var(--ink-muted)}
+.factors{display:grid;grid-template-columns:1fr;margin-top:56px;border-top:1px solid var(--rule)}
+@media (min-width:640px){.factors{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.factors{grid-template-columns:repeat(4,1fr)}}
+.factor{padding:var(--s6) var(--s6) var(--s8) 0;border-bottom:1px solid var(--rule);display:grid;gap:var(--s3);align-content:start;min-width:0}
+@media (min-width:640px){.factor:nth-child(even){padding-left:var(--s6);border-left:1px solid var(--rule)}}
+@media (min-width:1000px){.factor+.factor{padding-left:var(--s6);border-left:1px solid var(--rule)}}
+.factor .big{font:800 34px/1 var(--f-display);text-transform:uppercase}
+.factor p{margin:0;color:var(--ink-muted)}
+.factor .src{font:500 13px/18px var(--f-mono);color:var(--sea)}
+.factor svg{width:100%;height:56px;display:block}
+.outcome{margin-top:56px;display:grid;gap:var(--s6);grid-template-columns:1fr;align-items:center;background:var(--sea-shallow);border-radius:var(--r-m);padding:var(--s6)}
+@media (min-width:900px){.outcome{grid-template-columns:auto 1fr auto;padding:var(--s8)}}
+.outcome .n{font:900 96px/.85 var(--f-display);font-variant-numeric:tabular-nums}
+.outcome p{margin:0;font:400 18px/27px var(--f-text);max-width:52ch}
+.outcome .note{color:var(--ink-muted)}
+.disclaimer{margin-top:var(--s6)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.site-foot{border-top:1px solid var(--rule);padding-block:var(--s8) var(--s12);margin-top:var(--s12)}
+.site-foot .wrap{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s12);justify-content:space-between;align-items:baseline}
+.site-foot p{margin:0}
+.site-foot a{color:var(--ink);text-underline-offset:3px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="chart" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="#top"><i aria-hidden="true"></i>Gulf Spots</a>
+      <span class="label">Auckland &amp; Hauraki Gulf</span>
+    </nav>
+    <div class="hero-grid" id="top">
+      <div>
+        <h1>Where to fish <em>this</em> tide.</h1>
+        <p class="lede">Gulf Spots reads the wind, tide and light for every fishing spot in the inner Hauraki Gulf, and tells you the best places to try from your ramp, on the day you choose.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:john@gulfspots.co.nz?subject=Gulf%20Spots%20beta">Join the beta</a>
+          <a class="btn btn-ghost" href="#how">How it works</a>
+        </div>
+        <p class="status caption"><b aria-hidden="true"></b>Private beta from late October. On the App Store and Google Play in November.</p>
+      </div>
+
+      <aside class="panel" aria-label="Example recommendation">
+        <div class="top"><span class="label">Best window</span><span class="label">Example</span></div>
+        <div class="when">Sat 6–8am</div>
+        <p class="why">Dawn, tide running an hour after high, light NE with the tide.</p>
+        <div class="readings">
+          <div><span class="label">Score</span><span class="v">82</span></div>
+          <div><span class="label">Wind</span><span class="v">8<small>kn NE</small></span></div>
+          <div><span class="label">Depth</span><span class="v">14<small>m</small></span></div>
+        </div>
+        <div class="gauge" role="img" aria-label="Score 82 out of 100"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
+        <div class="foot"><span class="chip">Match</span><span class="caption">Reef edge · 4.2 km from your ramp</span></div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="kicker"><span class="label">How it works</span><span class="caption">Four things decide a good spot on the day</span></div>
+      <div class="intro">
+        <h2 class="h2">The spot is half of it. The day is the rest.</h2>
+        <p>A reef that fires on a north-east breeze and a running tide can be dead on a southerly at slack water. Gulf Spots scores every spot in two-hour windows for the next two weeks, so you know where to go and when.</p>
+      </div>
+
+      <div class="factors">
+        <article class="factor">
+          <svg viewBox="0 0 240 56" aria-hidden="true"><path d="M0 28 C30 4 60 4 90 28 S150 52 180 28 S220 8 240 18" fill="none" stroke="var(--sea)" stroke-width="2"/><circle cx="62" cy="10" r="5" fill="var(--buoy)"/></svg>
+          <span class="big">Tide</span>
+          <p>Fish feed when the water moves. Each spot is scored on how hard the tide runs over it, and which way.</p>
+          <span class="src">LINZ tide predictions</span>
+        </article>
+        <article class="factor">
+          <svg viewBox="0 0 240 56" aria-hidden="true"><g stroke="var(--sea)" stroke-width="2" fill="none"><path d="M0 16 H150 a12 12 0 1 0 -12 -12"/><path d="M0 32 H190 a10 10 0 1 1 -10 10"/><path d="M0 46 H110"/></g></svg>
+          <span class="big">Wind</span>
+          <p>Wind against your boat size and the shelter around each spot. Over your limit, the spot says No go.</p>
+          <span class="src">MetService forecasts</span>
+        </article>
+        <article class="factor">
+          <svg viewBox="0 0 240 56" aria-hidden="true"><path d="M0 50 H240" stroke="var(--rule)" stroke-width="2"/><path d="M20 50 A100 100 0 0 1 220 50" fill="none" stroke="var(--sea)" stroke-width="2" stroke-dasharray="4 5"/><circle cx="52" cy="22" r="7" fill="var(--buoy)"/></svg>
+          <span class="big">Light</span>
+          <p>Dawn and dusk lift the score. So does the moon phase, a little.</p>
+          <span class="src">Sun and moon tables</span>
+        </article>
+        <article class="factor">
+          <svg viewBox="0 0 240 56" aria-hidden="true"><g fill="none" stroke="var(--sea)" stroke-width="2"><path d="M0 40 C40 40 50 14 90 14 S140 36 180 30 240 20 240 20"/></g><g font-family="IBM Plex Mono, monospace" font-style="italic" font-size="11" fill="var(--ink-muted)"><text x="86" y="44">14</text><text x="150" y="52">17</text><text x="20" y="22">9</text></g></svg>
+          <span class="big">Ground</span>
+          <p>Reef edges, pinnacles and drop-offs found in official seabed soundings, with the sea temperature for the season.</p>
+          <span class="src">LINZ soundings · satellite SST</span>
+        </article>
+      </div>
+
+      <div class="outcome">
+        <span class="n">3,188</span>
+        <p>spots across the inner Hauraki Gulf, rescored every six hours. Each comes with its reason in one line, so you can judge it yourself.</p>
+        <a class="btn btn-primary" href="mailto:john@gulfspots.co.nz?subject=Gulf%20Spots%20beta">Join the beta</a>
+      </div>
+      <p class="caption disclaimer">A fishing aid, not for navigation. Spots are good places to try, never a promise of fish. Check the rules and your boat's limits before you go.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="caption">Gulf Spots is made by Northbeam Limited, Auckland, New Zealand. NZBN 9429054024977.</p>
+    <p class="caption">Contact <a href="mailto:john@gulfspots.co.nz">john@gulfspots.co.nz</a></p>
+  </div>
+</footer>
+
+<script>
+// Hero background: chart contours drawn on canvas, like soundings on a LINZ chart. Static once drawn; redraws on resize.
+(function(){
+  const c=document.getElementById('chart'); if(!c) return;
+  const ctx=c.getContext('2d');
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+  function draw(){
+    const r=c.getBoundingClientRect(), d=window.devicePixelRatio||1;
+    c.width=r.width*d; c.height=r.height*d; ctx.setTransform(d,0,0,d,0,0);
+    ctx.clearRect(0,0,r.width,r.height);
+    const W=r.width,H=r.height, cx=W*.78, cy=H*.32;
+    // seeded noise for repeatable contours
+    let s=7; const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647};
+    const k=[...Array(6)].map(()=>({a:rnd()*.28+.06,f:Math.floor(rnd()*4)+2,p:rnd()*6.28}));
+    ctx.lineWidth=1;
+    for(let i=1;i<=16;i++){
+      const base=i*Math.max(W,H)*.055;
+      ctx.beginPath();
+      for(let t=0;t<=360;t++){
+        const a=t/180*Math.PI; let m=1; k.forEach(q=>m+=q.a*Math.sin(q.f*a+q.p+i*.12));
+        const x=cx+Math.cos(a)*base*m*1.25, y=cy+Math.sin(a)*base*m*.8;
+        t?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle=i%5===0?css('--contour-strong'):css('--contour'); ctx.stroke();
+    }
+    ctx.fillStyle=css('--contour-strong'); ctx.font='italic 500 12px "IBM Plex Mono", monospace';
+    [[.62,.14,'9'],[.9,.58,'14'],[.7,.8,'17'],[.95,.12,'11'],[.55,.5,'21'],[.83,.36,'6']].forEach(([x,y,t])=>ctx.fillText(t,W*x,H*y));
+    ctx.fillStyle=css('--buoy'); ctx.beginPath(); ctx.arc(cx,cy,5,0,7); ctx.fill();
+  }
+  draw(); let to; addEventListener('resize',()=>{clearTimeout(to);to=setTimeout(draw,120)});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',draw);
+  document.fonts&&document.fonts.ready.then(draw);
+})();
+</script>
+</body>
+</html>
