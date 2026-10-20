@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Stop Gulf Spots beta emails.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08394a">
+<title>Unsubscribe · Gulf Spots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap">
+<style>
+/* Layout: as the policy pages, a single reading column on paper under the sea-deep bar; numbered clauses as on a printed policy. Tokens from the Gulf Spots Design Guide v2. */
+:root{--paper:#f2f5f6;--paper-raised:#ffffff;--ink:#0b1720;--ink-muted:#4a5b66;--rule:#c9d4d8;--sea:#0b5e73;--sea-deep:#08394a;--on-sea-deep:#f2f5f6;--buoy:#e85d10;--buoy-text:#b4430c;
+--f-display:"Big Shoulders Display","Arial Narrow",sans-serif;--f-text:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#091218;--paper-raised:#112029;--ink:#e7eef1;--ink-muted:#9db0b9;--rule:#22343e;--sea:#5cc1d8;--sea-deep:#0d3646;--on-sea-deep:#e7eef1;--buoy:#ff7a2f;--buoy-text:#ff9257;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#091218;--paper-raised:#112029;--ink:#e7eef1;--ink-muted:#9db0b9;--rule:#22343e;--sea:#5cc1d8;--sea-deep:#0d3646;--on-sea-deep:#e7eef1;--buoy:#ff7a2f;--buoy-text:#ff9257;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/27px var(--f-text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--sea);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--buoy);outline-offset:2px}
+header{background:var(--sea-deep);color:var(--on-sea-deep)}
+header .wrap{padding-block:24px 48px;display:grid;gap:32px}
+.brand{display:flex;align-items:center;gap:8px;font:800 26px/1 var(--f-display);color:var(--on-sea-deep);text-decoration:none}
+.brand i{width:14px;height:14px;border-radius:999px;background:var(--buoy);display:block}
+h1{font:900 clamp(56px,11vw,96px)/.9 var(--f-display);text-transform:uppercase;margin:0;text-wrap:balance}
+.meta{font:400 14px/20px var(--f-text);opacity:.8;margin:0}
+main .wrap{padding-block:48px 72px;display:grid;gap:8px}
+.lead{font-size:19px;line-height:29px;margin:0 0 24px}
+.key{border:2px solid var(--buoy);border-radius:10px;padding:16px 20px;background:var(--paper-raised);margin:0 0 24px}
+.key p{margin:0}
+h2{font:800 30px/1.1 var(--f-display);text-transform:uppercase;margin:32px 0 4px;padding-top:16px;border-top:1px solid var(--rule);display:flex;gap:12px;text-wrap:balance}
+h2 span{color:var(--buoy-text);font-variant-numeric:tabular-nums}
+p,ul{margin:0 0 12px}
+ul{padding-left:22px}
+li{margin-bottom:6px}
+.muted{color:var(--ink-muted);font-size:15px;line-height:23px}
+footer{border-top:1px solid var(--rule)}
+footer .wrap{padding-block:24px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;font-size:14px;color:var(--ink-muted)}
+footer a{color:var(--ink)}
+
+/* form (survey) */
+form{display:grid;gap:28px;margin:8px 0 0}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+legend{font:700 19px/26px var(--f-text);margin:0 0 10px;padding:0}
+legend small{display:block;font-weight:400;font-size:15px;color:var(--ink-muted)}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opts label{position:relative;display:flex;align-items:center;min-height:56px;padding:0 18px;border:1px solid #6c838e;border-radius:10px;background:var(--paper-raised);cursor:pointer;font-weight:700}
+.opts input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opts label:has(input:checked){background:var(--sea-deep);color:var(--on-sea-deep);border-color:var(--sea-deep)}
+.opts label:has(input:focus-visible){outline:3px solid var(--buoy);outline-offset:2px}
+.scale label{min-width:56px;justify-content:center;font:800 24px/1 var(--f-display)}
+.scale-ends{display:flex;justify-content:space-between;max-width:330px;font-size:14px;color:var(--ink-muted)}
+textarea{width:100%;min-height:110px;padding:12px 14px;border:1px solid #6c838e;border-radius:10px;background:var(--paper-raised);color:var(--ink);font:400 17px/25px var(--f-text);resize:vertical}
+.btn{justify-self:start;min-height:56px;padding:0 28px;border:0;border-radius:10px;background:var(--buoy);color:#0b1720;font:700 18px/1 var(--f-text);cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.msg{margin:0;font-weight:700;min-height:27px}
+.msg.err{color:#b3261e}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .msg.err{color:#ff6f66}}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="./"><i aria-hidden="true"></i>Gulf Spots</a><div style="display:grid;gap:12px"><h1>Unsubscribe</h1><p class="meta">Gulf Spots beta emails</p></div></div></header>
+<main><div class="wrap">
+<p class="lead" id="lead">Stop all Gulf Spots beta emails: setup reminders, the survey and launch news. Your app and beta access keep working.</p>
+<form id="f"><button class="btn" type="submit" id="go">Unsubscribe me</button><p class="msg" id="msg" role="status" aria-live="polite"></p></form>
+<p class="muted">Changed your mind later? Email <a href="mailto:hello@gulfspots.co.nz">hello@gulfspots.co.nz</a>. To delete your beta sign-up completely, email the same address.</p>
+</div></main>
+<footer><div class="wrap"><span>Gulf Spots is made by Northbeam Limited, Auckland, New Zealand. NZBN 9429054024977.</span><a href="./">Home</a><a href="terms.html">Terms of use</a><a href="privacy.html">Privacy</a><a href="delete.html">Delete account</a><span>hello@gulfspots.co.nz</span></div></footer>
+<script>
+const RPC='https://arroncsxjnizwgqzgscq.supabase.co/rest/v1/rpc/', KEY='sb_publishable_ftpRTwRgF6hmeq7WOYVkeQ_8EQFt2al';
+const call=async(fn,args)=>{const r=await fetch(RPC+fn,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify(args)});if(!r.ok)throw new Error(r.status);return r.json()};
+const token=new URLSearchParams(location.search).get('t')||'';
+const validToken=/^[0-9a-f-]{36}$/i.test(token);
+const f=document.getElementById('f'), msg=document.getElementById('msg'), go=document.getElementById('go');
+if(!validToken){f.classList.add('hide');document.getElementById('lead').innerHTML='This link isn’t complete. Open it again from your Gulf Spots email, or email <a href="mailto:hello@gulfspots.co.nz?subject=unsubscribe">hello@gulfspots.co.nz</a> and we’ll take you off the list.'}
+f.addEventListener('submit',async e=>{
+  e.preventDefault(); go.disabled=true;
+  try{ const a=await call('beta_unsubscribe',{p_token:token});
+    if(a==='ok'){f.classList.add('hide');document.getElementById('lead').innerHTML='<strong>Done.</strong> You won’t get any more Gulf Spots beta emails.'}
+    else {msg.className='msg err';msg.textContent='We couldn’t find that link. Email hello@gulfspots.co.nz and we’ll take you off the list.';go.disabled=false}
+  }catch{msg.className='msg err';msg.textContent='That didn’t go through. Try again in a moment.';go.disabled=false}
+});
+</script>
+</body>
+</html>

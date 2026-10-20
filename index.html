@@ -355,7 +355,7 @@ details p{margin:var(--s2) 0 0;color:var(--ink-muted);max-width:60ch}
         <div style="display:grid;gap:var(--s4);align-content:start">
           <span class="label" style="color:var(--buoy-text)">Private beta</span>
           <h2 class="h2" style="font-size:clamp(40px,6vw,64px)">Fish it before anyone else.</h2>
-          <p>We’re looking for Auckland boaties to test Gulf Spots from late October. Testers use the full app free during the beta and tell us what works.</p>
+          <p>We’re looking for Auckland boaties to test Gulf Spots from late October. Testers use the full app free during the beta. Answer a 2-minute survey after your first week and get <strong>50% off your first year</strong> when it launches.</p>
           <p class="caption">Use the email on your Google account (Android) or Apple ID (iPhone). The test invite goes there.</p>
         </div>
         <form id="beta-form" novalidate>
@@ -377,7 +377,7 @@ details p{margin:var(--s2) 0 0;color:var(--ink-muted);max-width:60ch}
           </div>
           <button class="btn btn-primary" type="submit" id="b-submit">Join the beta</button>
           <p class="msg" id="b-msg" role="status" aria-live="polite"></p>
-          <p class="caption">We use your email only to send the beta invite and app news. See the <a href="privacy.html">privacy policy</a>.</p>
+          <p class="caption">We use your email to send your beta code, setup help, the survey and app news. Unsubscribe any time. See the <a href="privacy.html">privacy policy</a>.</p>
         </form>
       </div>
     </div>
@@ -465,7 +465,7 @@ details p{margin:var(--s2) 0 0;color:var(--ink-muted);max-width:60ch}
     try{
       const r=await fetch(URL,{method:'POST',headers:{'apikey':KEY,'Content-Type':'application/json'},body:JSON.stringify({p_email:email,p_device:device,p_launch:launch||null})});
       const a=r.ok?await r.json():'error';
-      if(a==='ok') { say('You’re on the list. We’ll email your invite when testing starts in late October.',true); f.reset(); }
+      if(a==='ok') { say('You’re on the list. We’ll email your personal code and install steps when testing opens in late October.',true); f.reset(); }
       else if(a==='updated') say('You were already on the list. We’ve updated your details.',true);
       else if(a==='bad-email') say('Check your email address: it should look like you@example.co.nz.');
       else if(a==='busy') say('Lots of sign-ups right now. Try again in an hour, or email hello@gulfspots.co.nz.');
